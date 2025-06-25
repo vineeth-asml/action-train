@@ -21,7 +21,7 @@ jobs:
           echo "cat list.txt"
           echo "::endgroup::"
       - name: Uplload file
-        uses: action/upload-artifcat@v4
+        uses: action/upload-artifact@v4
         with:
           path: list.txt
           name: filelist
