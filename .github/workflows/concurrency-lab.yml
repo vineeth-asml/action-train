@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
         
       - run: |
-          ls -larth >> list.txt
+          tree >> list.txt
           echo "::group::Files list"
           cat list.txt
           echo "::endgroup::"
