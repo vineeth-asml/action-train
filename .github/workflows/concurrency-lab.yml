@@ -1,0 +1,35 @@
+name: Concurrency Demo
+
+on:
+  workflow_dispatch:
+  push:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  upload-tree:
+    runs-on: ubuntu-latest
+    name: Upload tree
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout repo
+        run:
+          ls -larth >> list.txt
+          echo "::group::Files list"
+          echo "cat list.txt"
+          echo "::endgroup::"
+      - name: Uplload file
+        uses: action/upload-artifcat@v4
+        with:
+          path: list.txt
+          name: filelist
+      - name: Add job summary with tree output
+        run: |
+          echo "### Job completed! :rocket:" >> $GITHUB_STEP_SUMMARY
+          echo '### Project Directory Tree' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat list.txt>> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+      
