@@ -18,7 +18,7 @@ jobs:
       - run: |
           ls -larth >> list.txt
           echo "::group::Files list"
-          echo "cat list.txt"
+          cat list.txt
           echo "::endgroup::"
           
       - name: Uplload file
